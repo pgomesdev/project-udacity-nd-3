@@ -7,6 +7,7 @@ import { Provider } from 'react-redux'
 
 // Redux
 import reducer from './reducers'
+import middleware from './middleware'
 
 // Components
 import Decks from './components/Decks'
@@ -21,14 +22,14 @@ import NewDeck from './components/NewDeck'
 
 // const AppContainer = createAppContainer(Stack)
 
-const store = createStore(reducer)
+const store = createStore(reducer, middleware)
 
 class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
         <View style={styles.container}>
-          <NewDeck />
+          <Decks />
         </View>
       </Provider>
     )

@@ -1,4 +1,4 @@
-import { RECEIVE_DECKS, receiveDecks } from '../actions'
+import { RECEIVE_DECKS } from '../actions'
 
 export default function decks (state = {}, action) {
   switch (action.type) {

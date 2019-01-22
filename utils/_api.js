@@ -3,11 +3,16 @@ import { AsyncStorage } from 'react-native'
 export const _getDecks = async function returnAllDecks () {
   const keys = await AsyncStorage.getAllKeys()
 
-  const decks = keys.map(async key => {
-    return await JSON.parse(AsyncStorage.getItem(key))
-  })
+  const decks = keys.reduce(async (accumulator, key) => {
+    return {
+      ...accumulator,
+      [key]: await JSON.parse(AsyncStorage.getItem(key)),
+    }
+  }, {})
 
-  return decks
+  return {
+    decks,
+  }
 }
 
 export const _getDeck = async function returnADeckById (id) {
