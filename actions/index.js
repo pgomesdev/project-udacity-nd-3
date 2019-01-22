@@ -11,6 +11,8 @@ function addDeck (deck) {
 }
 
 export function handleAddDeck (title) {
+  title = title.trim()
+  
   return async dispatch => {
     try {
       await _saveDeckTitle(title)

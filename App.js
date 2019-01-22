@@ -1,6 +1,6 @@
 // External packages
 import React from 'react'
-import { StyleSheet, View } from 'react-native'
+import { View, StatusBar } from 'react-native'
 import { createMaterialTopTabNavigator, createAppContainer } from 'react-navigation'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
@@ -42,6 +42,7 @@ class App extends React.Component {
     return (
       <Provider store={store}>
         <View style={{flex: 1}}>
+          <StatusBar translucent backgroundColor={'green'} />
           <AppContainer />
         </View>
       </Provider>
