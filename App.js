@@ -1,23 +1,36 @@
+// External packages
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
-import { createStackNavigator, createAppContainer } from 'react-navigation'
+//import { createStackNavigator, createAppContainer } from 'react-navigation'
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
+
+// Redux
+import reducer from './reducers'
+
+// Components
 import Decks from './components/Decks'
 import DeckDetail from './components/DeckDetail'
+import NewDeck from './components/NewDeck'
 
-const Stack = createStackNavigator({
-  Decks: {
-    screen: Decks,
-  },
-})
+// const Stack = createStackNavigator({
+//   Decks: {
+//     screen: Decks,
+//   },
+// })
 
-const AppContainer = createAppContainer(Stack)
+// const AppContainer = createAppContainer(Stack)
+
+const store = createStore(reducer)
 
 class App extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
-        <DeckDetail />
-      </View>
+      <Provider store={store}>
+        <View style={styles.container}>
+          <NewDeck />
+        </View>
+      </Provider>
     )
   }
 }
