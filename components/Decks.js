@@ -13,6 +13,8 @@ class Decks extends Component {
   async componentDidMount() {
     const decks = await _getDecks()
 
+    console.log(decks)
+
     this.props.getDecks(decks)
 
     this.setState(() => ({
@@ -45,7 +47,7 @@ class Decks extends Component {
       <View style={styles.container}>
         {this.props.decks && <FlatList
           data={decks}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item.title}
           renderItem={({ item }) => <Deck deck={item} />}
         />}
       </View>

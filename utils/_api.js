@@ -3,20 +3,20 @@ import { AsyncStorage } from 'react-native'
 export const _getDecks = async function returnAllDecks () {
   const keys = await AsyncStorage.getAllKeys()
 
-  const decks = keys.reduce(async (accumulator, key) => {
+  const decks = await keys.reduce(async (accumulator, key) => {
+    const deck = await AsyncStorage.getItem(key)
+
     return {
       ...accumulator,
-      [key]: await JSON.parse(AsyncStorage.getItem(key)),
+      [key]: JSON.parse(deck),
     }
   }, {})
 
-  return {
-    decks,
-  }
+  return decks
 }
 
 export const _getDeck = async function returnADeckById (id) {
-  const deck = await JSON.parse(AsyncStorage.getItem(id))
+  const deck = JSON.parse(await AsyncStorage.getItem(id))
 
   return deck
 }
@@ -38,7 +38,7 @@ export const _saveDeckTitle = async function createADeck (title) {
 export const _addCardToDeck = async function addACardToADeck (title, card) {
   const key = title
 
-  const deck = await JSON.parse(AsyncStorage.getItem(key))
+  const deck = JSON.parse(await AsyncStorage.getItem(key))
 
   deck.questions.push(card)
 
