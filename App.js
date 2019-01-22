@@ -4,6 +4,7 @@ import { View, StatusBar } from 'react-native'
 import { createMaterialTopTabNavigator, createAppContainer } from 'react-navigation'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
+import { Constants } from 'expo'
 
 // Redux
 import reducer from './reducers'
@@ -42,7 +43,9 @@ class App extends React.Component {
     return (
       <Provider store={store}>
         <View style={{flex: 1}}>
-          <StatusBar translucent backgroundColor={'green'} />
+          <View style={{backgroundColor: 'green', height: Constants.statusBarHeight}}>
+            <StatusBar translucent backgroundColor={'green'} />
+          </View>
           <AppContainer />
         </View>
       </Provider>
