@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, FlatList } from 'react-native'
+import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import { receiveDecks } from '../actions'
 import { _getDecks } from '../utils/_api'
@@ -9,6 +9,15 @@ class Decks extends Component {
   state = {
     ready: false,
   }
+
+  renderItem = ({ item }) => (
+    <TouchableOpacity onPress={() => this.props.navigation.navigate(
+      'DeckDetail',
+      { id: item.title }
+    )}>
+      <Deck deck={item} />
+    </TouchableOpacity>
+  )
 
   async componentDidMount() {
     const decks = await _getDecks()
@@ -48,7 +57,7 @@ class Decks extends Component {
         {this.props.decks && <FlatList
           data={decks}
           keyExtractor={(item) => item.title}
-          renderItem={({ item }) => <Deck deck={item} />}
+          renderItem={this.renderItem}
         />}
       </View>
     )
@@ -57,9 +66,7 @@ class Decks extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    marginTop: 20,
   },
 })
 

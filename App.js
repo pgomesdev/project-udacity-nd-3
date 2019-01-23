@@ -1,7 +1,7 @@
 // External packages
 import React from 'react'
 import { View, StatusBar } from 'react-native'
-import { createMaterialTopTabNavigator, createAppContainer } from 'react-navigation'
+import { createMaterialTopTabNavigator, createStackNavigator, createAppContainer } from 'react-navigation'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import { Constants } from 'expo'
@@ -14,12 +14,6 @@ import middleware from './middleware'
 import Decks from './components/Decks'
 import DeckDetail from './components/DeckDetail'
 import NewDeck from './components/NewDeck'
-
-// const Stack = createStackNavigator({
-//   Decks: {
-//     screen: Decks,
-//   },
-// })
 
 const Tabs = createMaterialTopTabNavigator({
   Decks: {
@@ -34,7 +28,16 @@ const Tabs = createMaterialTopTabNavigator({
   },
 })
 
-const AppContainer = createAppContainer(Tabs)
+const Stack = createStackNavigator({
+  Home: {
+    screen: Tabs,
+  },
+  DeckDetail: {
+    screen: DeckDetail,
+  },
+})
+
+const AppContainer = createAppContainer(Stack)
 
 const store = createStore(reducer, middleware)
 
