@@ -15,6 +15,7 @@ import Decks from './components/Decks'
 import DeckDetail from './components/DeckDetail'
 import NewDeck from './components/NewDeck'
 import NewCard from './components/NewCard'
+import Quiz from './components/Quiz'
 
 const Tabs = createMaterialTopTabNavigator({
   Decks: {
@@ -43,6 +44,12 @@ const Stack = createStackNavigator({
     screen: NewCard,
     navigationOptions: {
       title: 'New Card',
+    },
+  },
+  Quiz: {
+    screen: Quiz,
+    navigationOptions: {
+      title: 'Quiz',
     },
   },
 }, {

@@ -19,8 +19,10 @@ class DeckDetail extends Component {
   }
 
   startQuiz = () => {
-    alert('Start Quizz')
-    // Redirect to quiz screen
+    this.props.navigation.navigate(
+      'Quiz',
+      { id: this.props.navigation.state.params.id }
+    )
   }
 
   render() {
