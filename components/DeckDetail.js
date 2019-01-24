@@ -12,8 +12,10 @@ class DeckDetail extends Component {
   }
 
   addCard = () => {
-    alert('Add card')
-    // Redirect to add card screen
+    this.props.navigation.navigate(
+      'NewCard',
+      { id: this.props.navigation.state.params.id }
+    )
   }
 
   startQuiz = () => {

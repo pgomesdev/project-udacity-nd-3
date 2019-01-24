@@ -14,6 +14,7 @@ import middleware from './middleware'
 import Decks from './components/Decks'
 import DeckDetail from './components/DeckDetail'
 import NewDeck from './components/NewDeck'
+import NewCard from './components/NewCard'
 
 const Tabs = createMaterialTopTabNavigator({
   Decks: {
@@ -21,6 +22,9 @@ const Tabs = createMaterialTopTabNavigator({
   },
   NewDeck: {
     screen: NewDeck,
+    navigationOptions: {
+      tabBarLabel: 'New Deck',
+    }
   }
 }, {
   navigationOptions: {
@@ -35,6 +39,16 @@ const Stack = createStackNavigator({
   DeckDetail: {
     screen: DeckDetail,
   },
+  NewCard: {
+    screen: NewCard,
+    navigationOptions: {
+      title: 'New Card',
+    },
+  },
+}, {
+  navigationOptions: {
+    header: null,
+  }
 })
 
 const AppContainer = createAppContainer(Stack)

@@ -1,7 +1,28 @@
-import { _saveDeckTitle } from '../utils/_api'
+import { _saveDeckTitle, _addCardToDeck } from '../utils/_api'
 
+export const ADD_CARD = 'ADD_CARD'
 export const ADD_DECK = 'ADD_DECK'
 export const RECEIVE_DECKS = 'RECEIVE_DECKS'
+
+function addCard (id, card) {
+  return {
+    type: ADD_CARD,
+    id,
+    card,
+  }
+}
+
+export function handleAddCard (title, card) {
+  return async dispatch => {
+    try {
+      await _addCardToDeck(title, card)
+
+      dispatch(addCard(title, card))
+    } catch (error) {
+      throw new Error(error)
+    }
+  }
+}
 
 function addDeck (deck) {
   return {
