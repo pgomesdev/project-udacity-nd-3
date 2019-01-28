@@ -3,12 +3,28 @@ import { View, Text } from 'react-native'
 import { connect } from 'react-redux'
 import FrontCard from './FrontCard'
 import BackCard from './BackCard'
+import QuizPoints from './QuizPoints'
 
 class Quiz extends Component {
   state = {
     isQuestion: true,
     currentQuestion: 0,
     counter: 0,
+  }
+
+  restartQuiz = () => {
+    this.setState(() => ({
+      isQuestion: true,
+      currentQuestion: 0,
+      counter: 0,
+    }))
+  }
+
+  backToDeck = (id) => {
+    this.props.navigation.navigate(
+      'DeckDetail',
+      { id }
+    )
   }
 
   checkAnswer = () => {
@@ -37,14 +53,17 @@ class Quiz extends Component {
 
     if (!questions[this.state.currentQuestion] && this.state.currentQuestion > 0) {
       return (
-        <View>
-          <Text>You got {this.state.counter} questions right!</Text>
-        </View>
+        <QuizPoints
+          points={this.state.counter}
+          restartQuiz={this.restartQuiz}
+          backToDeck={() => this.backToDeck(id)}
+        />
       )
     }
 
     return (
       <View>
+        <Text>{questions.length - (this.state.currentQuestion + 1)} questions left</Text>
         {this.state.isQuestion
         ? <FrontCard
             question={questions[this.state.currentQuestion].question}
