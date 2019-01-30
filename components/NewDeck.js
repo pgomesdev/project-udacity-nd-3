@@ -66,13 +66,6 @@ const styles = StyleSheet.create({
     height: 40,
     margin: 10,
     padding: 10,
-    shadowRadius: 3,
-    shadowOpacity: 0.8,
-    shadowColor: 'rgba(0, 0, 0, 0.24)',
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
   },
   submitButton: {
     backgroundColor: 'black',

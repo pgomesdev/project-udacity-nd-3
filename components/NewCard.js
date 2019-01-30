@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, TextInput, TouchableOpacity } from 'react-native'
+import { KeyboardAvoidingView, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 import { handleAddCard } from '../actions'
 
@@ -15,9 +15,14 @@ class NewCard extends Component {
   onPress = async () => {
     const { question, answer } = this.state
     const card = {
-      question, answer
+      question,
+      answer,
     }
     const { id } = this.props.navigation.state.params
+
+    if (!question || !answer) {
+      return alert('The question and the answer must be filled')
+    }
 
     await this.props.addCard(id, card)
     
@@ -34,29 +39,64 @@ class NewCard extends Component {
   }
 
   render() {
-    const { id } = this.props.navigation.state.params
-
     return (
-      <View>
-        <Text>Question</Text>
+      <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
+        <Text style={styles.title}>Question</Text>
         <TextInput
+          style={styles.input}
           onChangeText={(text) => this.onChange(text, question)}
           value={this.state.question}
         />
-        <Text>Answer</Text>
+        <Text style={styles.title}>Answer</Text>
         <TextInput
+          style={styles.input}
           onChangeText={(text) => this.onChange(text, answer)}
           value={this.state.answer}
         />
         <TouchableOpacity
+          style={styles.submitButton}
           onPress={this.onPress}
         >
-          <Text>Save Question</Text>
+          <Text style={styles.submitButtonText}>Save Question</Text>
         </TouchableOpacity>
-      </View>
+      </KeyboardAvoidingView>
     )
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  title: {
+    fontSize: 26,
+    fontWeight: 'bold',
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: 'gray',
+    width: '80%',
+    height: 40,
+    margin: 10,
+    padding: 10,
+  },
+  submitButton: {
+    backgroundColor: 'black',
+    padding: 10,
+    paddingLeft: 30,
+    paddingRight: 30,
+    height: 45,
+    borderRadius: 2,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  submitButtonText: {
+    color: 'white',
+    fontSize: 18,
+  },
+})
 
 const mapStateToProps = (state) => {
   return {
