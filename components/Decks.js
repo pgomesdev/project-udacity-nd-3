@@ -22,8 +22,6 @@ class Decks extends Component {
   async componentDidMount() {
     const decks = await _getDecks()
 
-    console.log(decks)
-
     this.props.getDecks(decks)
 
     this.setState(() => ({

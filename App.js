@@ -17,6 +17,9 @@ import NewDeck from './components/NewDeck'
 import NewCard from './components/NewCard'
 import Quiz from './components/Quiz'
 
+// Notification
+import { setLocalNotification } from './utils/helpers'
+
 const Tabs = createMaterialTopTabNavigator({
   Decks: {
     screen: Decks,
@@ -63,6 +66,10 @@ const AppContainer = createAppContainer(Stack)
 const store = createStore(reducer, middleware)
 
 class App extends React.Component {
+  componentDidMount() {
+    return setLocalNotification()
+  }
+
   render() {
     return (
       <Provider store={store}>

@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import FrontCard from './FrontCard'
 import BackCard from './BackCard'
 import QuizPoints from './QuizPoints'
+import { clearLocalNotifications, setLocalNotification } from '../utils/helpers'
 
 class Quiz extends Component {
   state = {
@@ -52,6 +53,9 @@ class Quiz extends Component {
     const questions = deck.questions
 
     if (!questions[this.state.currentQuestion] && this.state.currentQuestion > 0) {
+      clearLocalNotifications()
+        .then(setLocalNotification)
+
       return (
         <QuizPoints
           points={this.state.counter}
@@ -63,7 +67,7 @@ class Quiz extends Component {
 
     return (
       <View>
-        <Text>{questions.length - (this.state.currentQuestion + 1)} questions left</Text>
+        <Text>{this.state.currentQuestion + 1}/{questions.length}</Text>
         {this.state.isQuestion
         ? <FrontCard
             question={questions[this.state.currentQuestion].question}

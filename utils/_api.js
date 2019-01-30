@@ -1,10 +1,11 @@
 import { AsyncStorage } from 'react-native'
+import { NOTIFICATION_KEY } from './helpers'
 
 export const _getDecks = async function returnAllDecks () {
   const keys = await AsyncStorage.getAllKeys()
 
   const data = await Promise.all(
-    keys.map(key => AsyncStorage.getItem(key))
+    keys.filter(key => key !== NOTIFICATION_KEY).map(key => AsyncStorage.getItem(key))
   )
 
   const decks = data.reduce((accumulator, currentValue) => {
