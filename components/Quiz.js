@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
 import FrontCard from './FrontCard'
 import BackCard from './BackCard'
@@ -66,8 +66,8 @@ class Quiz extends Component {
     }
 
     return (
-      <View>
-        <Text>{this.state.currentQuestion + 1}/{questions.length}</Text>
+      <View style={styles.container}>
+        <Text style={styles.questionCounter}>{this.state.currentQuestion + 1}/{questions.length}</Text>
         {this.state.isQuestion
         ? <FrontCard
             question={questions[this.state.currentQuestion].question}
@@ -82,6 +82,16 @@ class Quiz extends Component {
     )
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  questionCounter: {
+    fontSize: 20,
+  },
+})
 
 const mapStateToProps = (state) => {
   return {
