@@ -25,7 +25,7 @@ class NewDeck extends Component {
       title: '',
     }))
 
-    alert('Deck created!')
+    this.props.navigation.goBack()
   }
 
   render() {
