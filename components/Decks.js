@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
+import { AppLoading } from 'expo'
 import { receiveDecks } from '../actions'
 import { _getDecks } from '../utils/_api'
 import Deck from './Deck'
@@ -34,9 +35,7 @@ class Decks extends Component {
 
     if (!ready) {
       return (
-        <View>
-          <Text>Loading</Text>
-        </View>
+        <AppLoading />
       )
     }
 
@@ -44,15 +43,15 @@ class Decks extends Component {
 
     if (decks.length === 0) {
       return (
-        <View>
-          <Text>You don't have decks yet</Text>
+        <View style={styles.container}>
+          <Text style={styles.title}>You don't have decks yet</Text>
         </View>
       )
     }
 
     return (
       <View style={styles.container}>
-        {this.props.decks && <FlatList
+        {decks && <FlatList
           data={decks}
           keyExtractor={(item) => item.title}
           renderItem={this.renderItem}
@@ -63,8 +62,10 @@ class Decks extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    marginTop: 20,
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    alignSelf: 'center',
   },
 })
 
