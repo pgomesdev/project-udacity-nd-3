@@ -1,15 +1,14 @@
 import { AsyncStorage } from 'react-native'
-import { NOTIFICATION_KEY } from './helpers'
+
+const DECK_KEY = 'Flashcards:decks'
 
 export const _getDecks = async function returnAllDecks () {
-  const keys = await AsyncStorage.getAllKeys()
+  const keys = JSON.parse(await AsyncStorage.getItem(DECK_KEY))
 
-  const data = await Promise.all(
-    keys.filter(key => key !== NOTIFICATION_KEY).map(key => AsyncStorage.getItem(key))
-  )
+  const data = keys ? Object.keys(keys).map(key => keys[key]) : []
 
   const decks = data.reduce((accumulator, currentValue) => {
-    const deck = JSON.parse(currentValue)
+    const deck = currentValue
 
     return {
       ...accumulator,
@@ -21,34 +20,43 @@ export const _getDecks = async function returnAllDecks () {
 }
 
 export const _getDeck = async function returnADeckById (id) {
-  const deck = JSON.parse(await AsyncStorage.getItem(id))
+  const deck = JSON.parse(await AsyncStorage.getItem(DECK_KEY))[id]
 
   return deck
 }
 
 export const _saveDeckTitle = async function createADeck (title) {
+  const currentData = JSON.parse(await AsyncStorage.getItem(DECK_KEY))
   const key = title
+
   const data = {
     title,
     questions: [],
   }
 
   try {
-    await AsyncStorage.setItem(key, JSON.stringify(data))
+    await AsyncStorage.setItem(DECK_KEY, JSON.stringify({
+      ...currentData,
+      [key]: data,
+    }))
   } catch (error) {
     throw new Error (error)
   }
 }
 
 export const _addCardToDeck = async function addACardToADeck (title, card) {
+  const currentData = JSON.parse(await AsyncStorage.getItem(DECK_KEY))
   const key = title
 
-  const deck = JSON.parse(await AsyncStorage.getItem(key))
+  const deck = JSON.parse(await AsyncStorage.getItem(DECK_KEY))[key]
 
   deck.questions.push(card)
 
   try {
-    await AsyncStorage.mergeItem(key, JSON.stringify(deck))
+    await AsyncStorage.setItem(DECK_KEY, JSON.stringify({
+      ...currentData,
+      [key]: deck,
+    }))
   } catch (error) {
     throw new Error (error)
   }
