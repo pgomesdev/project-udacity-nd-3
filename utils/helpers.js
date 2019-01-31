@@ -34,10 +34,8 @@ export async function setLocalNotification () {
 
       const time = new Date()
       time.setDate(time.getDate() + 1)
-      time.setHours(13)
-      time.setMinutes(0)
-
-      console.log('time', time)
+      time.setHours(19)
+      time.setMinutes(10)
 
       Notifications.scheduleLocalNotificationAsync(
         createNotification(),
