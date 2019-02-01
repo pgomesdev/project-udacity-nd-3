@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
+import { AppLoading } from 'expo'
 
 class DeckDetail extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -28,6 +29,10 @@ class DeckDetail extends Component {
   render() {
     const { id } = this.props.navigation.state.params
     const deck = this.props.decks[id]
+
+    if (!deck) {
+      return <AppLoading />
+    }
 
     return (
       <View style={styles.container}>

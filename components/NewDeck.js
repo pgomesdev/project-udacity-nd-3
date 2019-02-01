@@ -14,18 +14,25 @@ class NewDeck extends Component {
     }))
   }
 
-  onPress = () => {
+  onPress = async () => {
+    const { title } = this.state
+
     if (!this.state.title) {
       return alert('The deck must have a title')
     }
 
-    this.props.dispatch(handleAddDeck(this.state.title))
+    await this.props.dispatch(handleAddDeck(title))
 
-    this.setState(() => ({
+    await this.setState(() => ({
       title: '',
     }))
 
-    this.props.navigation.goBack()
+    this.props.navigation.navigate(
+      'DeckDetail',
+      { id: title }
+    )
+
+    //this.props.navigation.goBack()
   }
 
   render() {
