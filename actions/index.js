@@ -4,11 +4,10 @@ export const ADD_CARD = 'ADD_CARD'
 export const ADD_DECK = 'ADD_DECK'
 export const RECEIVE_DECKS = 'RECEIVE_DECKS'
 
-function addCard (id, card) {
+function addCard (payload) {
   return {
     type: ADD_CARD,
-    id,
-    card,
+    payload,
   }
 }
 
@@ -17,7 +16,7 @@ export function handleAddCard (title, card) {
     try {
       await _addCardToDeck(title, card)
 
-      dispatch(addCard(title, card))
+      dispatch(addCard({id: title, card}))
     } catch (error) {
       throw new Error(error)
     }

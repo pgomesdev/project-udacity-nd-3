@@ -3,14 +3,14 @@ import { ADD_CARD, ADD_DECK, RECEIVE_DECKS } from '../actions'
 export default function decks (state = {}, action) {
   switch (action.type) {
     case ADD_CARD:
-      const questions = state[action.id].questions
+      const questions = state[action.payload.id].questions
 
-      questions.push(action.card)
+      questions.push(action.payload.card)
 
       return {
         ...state,
-        [action.id]: {
-          ...state[action.id],
+        [action.payload.id]: {
+          ...state[action.payload.id],
           questions,
         },
       }
