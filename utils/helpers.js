@@ -10,17 +10,15 @@ export function clearLocalNotifications () {
     })
 }
 
-function createNotification () {
-  return {
-    title: 'Study a little bit!',
-    body: '👋 don\'t forget to study your flashcards',
-    android: {
-      sound: true,
-      priority: 'high',
-      sticky: false,
-      vibrate: true,
-    },
-  }
+const createNotification = {
+  title: 'Study a little bit!',
+  body: '👋 don\'t forget to study your flashcards',
+  android: {
+    sound: true,
+    priority: 'high',
+    sticky: false,
+    vibrate: true,
+  },
 }
 
 export async function setLocalNotification () {
@@ -38,7 +36,7 @@ export async function setLocalNotification () {
       time.setMinutes(10)
 
       Notifications.scheduleLocalNotificationAsync(
-        createNotification(),
+        createNotification,
         {
           time: time,
           repeat: 'day',
